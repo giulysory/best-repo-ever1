@@ -1,7 +1,50 @@
 <template>
-    <lightning-card class="slds-card" title="Insert a new Opportunity" icon-name="custom:custom14">
-      <lightning-input type="text" label="Opportunity Name" required="true"></lightning-input>
-      <lightning-input type="date" label="Close Date" required="true"></lightning-input>
-      <lightning-combobox label="Stage" value={stage} options={options} onchange={handleChange} required="true"></lightning-combobox>
+    <lightning-card class="slds-card" title="Insert a new Opportunity" icon-name="standard:opportunity">
+        <div class="slds-var-m-around_medium">
+            <lightning-input 
+                name="Name"
+                type="text" 
+                label="Opportunity Name" 
+                value={opportunityFields.name} 
+                onchange={handleNameChange}
+                required="true">
+            </lightning-input>
+            <lightning-input 
+                name="CloseDate"
+                type="date" 
+                label="Close Date" 
+                value={opportunityFields.closeDate} 
+                onchange={handleDateChange}
+                required="true">
+            </lightning-input>
+            <lightning-combobox
+                name="StageName" 
+                label="Stage" 
+                value={opportunityFields.stage} 
+                options={options} 
+                onchange={handleStageChange} 
+                required="true">
+            </lightning-combobox>
+        </div>
+        <div class="slds-var-m-bottom_medium">
+            <lightning-button
+                class="slds-var-m-around_small" 
+                variant="neutral"   
+                label="Insert Opportunity"
+                title="Insert Opportunity"
+                onclick={handleClick}>
+            </lightning-button>
+        </div>
+        <template if:true={isDataVisible}>
+            <template if:true={oppsInDatabase.data}>
+                <template for:each={oppsInDatabase.data} for:item="opp">
+                    <div key={opp.Id} class="slds-box">
+                        <p><strong>Opportunity Name:</strong> {opp.Name}</p>
+                        <p><strong>Close Date:</strong> {opp.CloseDate}</p>
+                        <p><strong>Stage:</strong> {opp.StageName}</p>
+                    </div>
+                </template>
+            </template>
+        </template>
     </lightning-card>
   </template>

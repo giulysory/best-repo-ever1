@@ -12,4 +12,9 @@ public with sharing class CreateOpportunity {
             System.debug('Insertion failed: ' + e.getMessage());
         }
     }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Opportunity> retrieveOpps(){
+        return [SELECT Id, Name, CloseDate, StageName FROM Opportunity]; 
+    }
 }
