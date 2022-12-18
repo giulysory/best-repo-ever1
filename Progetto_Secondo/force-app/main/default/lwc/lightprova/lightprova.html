@@ -1,8 +1,7 @@
 <template>
-    <lightning-card title="HelloWorld" icon-name="custom:custom14">
-      <div class="slds-m-around_medium">
-        <p>Hello, {greeting}!</p>
-        <lightning-input label="Name" value={greeting} onchange={changeHandler}></lightning-input>
-      </div>
+    <lightning-card class="slds-card" title="Insert a new Opportunity" icon-name="custom:custom14">
+      <lightning-input type="text" label="Opportunity Name" required="true"></lightning-input>
+      <lightning-input type="date" label="Close Date" required="true"></lightning-input>
+      <lightning-combobox label="Stage" value={stage} options={options} onchange={handleChange} required="true"></lightning-combobox>
     </lightning-card>
   </template>
