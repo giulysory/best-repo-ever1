@@ -1,5 +1,5 @@
 <template>
-    <lightning-card class="slds-card" title="Insert a new Opportunity" icon-name="custom:custom14">
+    <lightning-card class="slds-card" title="Insert a new Opportunity" icon-name="standard:opportunity">
         <div class="slds-var-m-around_medium">
             <lightning-input 
                 name="Name"
@@ -36,9 +36,15 @@
             </lightning-button>
         </div>
         <template if:true={isDataVisible}>
-            <div>Name: {opportunityFields.name}</div>
-            <div>Close Date: {opportunityFields.closeDate}</div>
-            <div>Stage: {opportunityFields.stage}</div>
+            <template if:true={oppsInDatabase.data}>
+                <template for:each={oppsInDatabase.data} for:item="opp">
+                    <div key={opp.Id} class="slds-box">
+                        <p><strong>Opportunity Name:</strong> {opp.Name}</p>
+                        <p><strong>Close Date:</strong> {opp.CloseDate}</p>
+                        <p><strong>Stage:</strong> {opp.StageName}</p>
+                    </div>
+                </template>
+            </template>
         </template>
     </lightning-card>
   </template>

@@ -1,9 +1,13 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
 import createOpp from '@salesforce/apex/CreateOpportunity.createOpp';
-import retrieveOpp from '@salesforce/apex/CreateOpportunity.retrieveOpp';
+import retrieveOpps from '@salesforce/apex/CreateOpportunity.retrieveOpps';
 
 export default class Lightprova extends LightningElement {
+  @wire(retrieveOpps)
+  oppsInDatabase;
+
   isDataVisible = false;
+
   get options() {
     return [
       {value: null, label: "--None--"},
@@ -26,8 +30,19 @@ export default class Lightprova extends LightningElement {
     stage: this.options[0].value
   };  
 
+  
   handleClick() {
-    this.isDataVisible = !this.isDataVisible;
+    createOpp({
+      name: this.opportunityFields.name,
+      close: this.opportunityFields.closeDate,
+      stage: this.opportunityFields.stage
+    })
+    .then(result => {
+      console.log(result);
+      this.isDataVisible = true;
+    })
+    .catch(e => console.error(e));
+    //this.isDataVisible = !this.isDataVisible;
   }
 
   handleNameChange(e) {
